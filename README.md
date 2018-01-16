@@ -1,3 +1,7 @@
+Ruby on Rails App
+
+This is an app prepared for final project
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
