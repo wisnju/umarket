@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  #一个用户对应多个微博,删除用户也会删除微博
+  has_many :microposts, dependent: :destroy
+  #记录用户状态
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
@@ -40,5 +43,7 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
-
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 end

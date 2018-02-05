@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  def show
-    @user = User.find(params[:id])
-  end
-  
+
   def new
     @user = User.new
   end
@@ -18,7 +15,13 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
+  
+  def show
+    @user = User.find(params[:id])
+    #微博分页显示
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end
+  
   private
 
     def user_params
