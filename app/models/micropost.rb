@@ -6,7 +6,7 @@ class Micropost < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
   #用户存在性验证和发布内容长度验证
   validates :user_id, presence: true
-  validates :content, presence: true, length: { maximum: 140 }
+  validates :content, presence: true, length: { maximum: 1000 }
   validate  :picture_size
   
   private
