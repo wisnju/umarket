@@ -43,7 +43,8 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
+  # 返回用户ID
   def feed
-    Micropost.where("user_id = ?", id)
+    Micropost.where("user_id IN (?) OR user_id = ?", (1..User.count), id)
   end
 end

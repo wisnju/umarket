@@ -9,8 +9,10 @@ User.create!(name:  "admin",
              email: "admin@admin.com",
              password:              "123456",
              password_confirmation: "123456")
+"""
 users = User.order(:created_at).take(1)
 50.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
 end
+"""

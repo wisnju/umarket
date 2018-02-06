@@ -10,21 +10,24 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <h3>我的推荐</h3>
+      <h3>看看大家的推荐</h3>
       <%= render 'shared/feed' %>
+    </div>
   </div>
 <% else %>
   <div class="center jumbotron">
     <h1>欢迎来到UMarket</h1>
   
     <h2>
-      这是一个由中国科学院大学的IMEPB.KBZ开发的项目
+      登录账户，看看大家推荐的最火APP！
     </h2>
   
     <%= link_to "加入我们!", 'signup', class: "btn btn-lg btn-primary" %>
     <%= link_to "现在登录!", 'login', class: "btn btn-lg btn-primary" %>
   </div>
-
-  <%= link_to image_tag("timg.jpg", alt: "Rails logo"),
+  <div class="center jumbotron">
+    <%= link_to image_tag("timg.jpg", alt: "Rails logo"),
             'http://www.ucas.ac.cn/' %>
+  </div>
+
 <% end %>
