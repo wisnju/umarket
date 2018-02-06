@@ -1,0 +1,58 @@
+APP Recommendation 设计文档
+
+项目名称：APP Recommendation
+项目意义：为用户提供推荐自己认为好用和值得分享的APP和浏览他人分享的APP的平台。
+项目目标：开发一款可推荐APP的web应用，注册后用户可在该应用平台上发布推荐APP的信息，和浏览他人发布的推荐APP的信息。
+技术实施方案：APP Recommentation选择了RVM(Ruby version manager)作为版本控制工具，利用git、bundler、rack、CSS、Heroku和cloud9作为协作开发工具，使用PostgreSQL作为生产环境数据库，SQLite作为开发环境数据库，选择rails4.2.2作为应用开发框架。
+项目具体设计：
+BDD user stories：作为一个用户，想要有一个可以发布应用信息的平台，以便将自己想要分享的APP推荐给其他用户。
+作为一个用户，想要有一个能看到其他用户发布的推荐APP信息的平台，以便挑选自己需要的APP。
+low-fi UI：
+ 
+TDD test cases：利用RSpec进行TDD测试
+require 'test_helper'
+
+class UserTest < ActiveSupport::TestCase
+
+  def setup
+    @user = User.new(name: "Example User", email: "user@example.com")
+  end
+
+  test "should be valid" do
+    assert @user.valid?
+  end
+
+  test "name should be present" do
+    @user.name = "     "
+    assert_not @user.valid?
+  end
+  
+  test "name should not be too long" do
+    @user.name = "a" * 51
+    assert_not @user.valid?
+  end
+
+  test "email should not be too long" do
+    @user.email = "a" * 244 + "@example.com"
+    assert_not @user.valid?
+  end
+  
+  test "email validation should accept valid addresses" do
+    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+                         first.last@foo.jp alice+bob@baz.cn]
+    valid_addresses.each do |valid_address|
+      @user.email = valid_address
+      assert @user.valid?, "#{valid_address.inspect} should be valid"
+    end
+  end
+  
+  test "email validation should reject invalid addresses" do
+    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+                           foo@bar_baz.com foo@bar+baz.com]
+    invalid_addresses.each do |invalid_address|
+      @user.email = invalid_address
+      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
+    end
+  end
+测试了用户信息的有效性，包括名字，邮箱是否存在，长度和格式是否符合要求。基于这个TDD文件，开发user model，然后由RED调试到GREEN，最后进行user模型重构的时候重复red到green的调试过程。
+
